@@ -1,0 +1,25 @@
+﻿<!-- nav -->
+<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="user">
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+        <!-- <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">User</a> -->
+        <a class="nav-item nav-link" routerLink="/students" routerLinkActive="active">Students</a>
+        <a class="nav-item nav-link" routerLink="/rosters" routerLinkActive="active">Roster</a>
+        <a class="nav-item nav-link" routerLink="/classes" routerLinkActive="active">Class</a>
+        <a class="nav-item nav-link" routerLink="/reports" routerLinkActive="active">Reports</a>
+        <a class="nav-item nav-link" (click)="logout()">Logout</a>
+    </div>
+</nav>
+
+<!-- main app container -->
+<div class="app-container" [ngClass]="{ 'bg-light': user }">
+    <alert></alert>
+    <router-outlet></router-outlet>
+</div>
+
+<!-- credits: Below are the Credits to the tutorials achieved on my new learning of Angular by Jason Watmore  -->
+<div class="text-center mt-4">
+    <p> All Thanks to Tutorials by Jason Watmore at:
+         <a href="https://jasonwatmore.com" target="_top">JasonWatmore.com</a>
+    </p>
+</div>

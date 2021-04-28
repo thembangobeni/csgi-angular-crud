@@ -1,0 +1,40 @@
+﻿<h1>Students</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Add Student</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 30%">Student#</th>
+            <th style="width: 30%">Student Name</th>
+            <th style="width: 30%">Last Name</th>
+            <th style="width: 30%">Birth Date</th>
+            <th style="width: 30%">Gender</th>
+            <th style="width: 30%">CreatedBy</th>
+            <th style="width: 30%">UpdateBy</th>
+            <th style="width: 10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let student of students">
+            <td>{{students.studentid}}</td>
+            <td>{{students.student_name}}</td>
+            <td>{{students.last_name}}</td>
+            <td>{{students.date_of_birth}}</td>
+            <td>{{students.gender}}</td>
+            <td>{{students.created_by}}</td>
+            <td>{{students.updated_by}}</td>
+
+            <td style="white-space: nowrap">
+                <a routerLink="edit/{{user.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+                <button (click)="deleteStudent(student.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="student.isDeleting">
+                    <span *ngIf="user.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!user.isDeleting">Delete</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!students">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
