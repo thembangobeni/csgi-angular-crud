@@ -51,6 +51,13 @@ export class detailreport_vService {
         return this.http.get<Csgi_detailreport_v[]>(`${environment.apiUrl}/api/dbviews`);
     }
 
+    getAllDetailReport(id: String) {
+        alert('get detail service'+id)
+        return this.http.get<Csgi_detailreport_v[]>(`${environment.apiUrl}/api/dbviews/${id}`);
+    }
+
+    
+
     getById(id: string, classid: string, gradeid: string) {
         return this.http.get<Csgi_detailreport_v>(`${environment.apiUrl}/api/dbviews/${id}/${classid}/${gradeid}`);
     }
