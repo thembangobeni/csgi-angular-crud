@@ -59,6 +59,7 @@ export class GradeService {
     }
 
     update(id, params) {
+        alert(id);
         return this.http.put(`${environment.apiUrl}/api/grade/${id}`, params)
             .pipe(map(x => {
                 // update stored user if the logged in user updated their own record
@@ -83,6 +84,7 @@ export class GradeService {
                 if (id == this.gradeValue.gradeid) {
                     this.logout();
                 }
+                alert(JSON.stringify(x));
                 return x;
             }));
       

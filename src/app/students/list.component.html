@@ -3,35 +3,35 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th style="width: 30%">Student#</th>
-            <th style="width: 30%">Student Name</th>
-            <th style="width: 30%">Last Name</th>
+            <th style="width: 10%">Student#</th>
+            <th style="width: 20%">Student Name</th>
+            <th style="width: 20%">Last Name</th>
             <th style="width: 30%">Birth Date</th>
-            <th style="width: 30%">Gender</th>
-            <th style="width: 30%">CreatedBy</th>
-            <th style="width: 30%">UpdateBy</th>
+            <th style="width: 20%">Gender</th>
+            <th style="width: 10%">CreatedBy</th>
+            <th style="width: 10%">UpdateBy</th> 
             <th style="width: 10%"></th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let student of students">
-            <td>{{students.studentid}}</td>
-            <td>{{students.student_name}}</td>
-            <td>{{students.last_name}}</td>
-            <td>{{students.date_of_birth}}</td>
-            <td>{{students.gender}}</td>
-            <td>{{students.created_by}}</td>
-            <td>{{students.updated_by}}</td>
-
+        <tr *ngFor="let student of studentData">
+            <td>{{student.studentid}}</td>
+            <td>{{student.student_name}}</td>
+            <td>{{student.last_name}}</td>
+            <td>{{student.date_of_birth | date :'yyyy-MM-dd'}}</td>
+            <td>{{student.gender}}</td>
+            <td>{{student.created_by}}</td>
+            <td>{{student.updated_by}}</td>
+      
             <td style="white-space: nowrap">
-                <a routerLink="edit/{{user.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
-                <button (click)="deleteStudent(student.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="student.isDeleting">
-                    <span *ngIf="user.isDeleting" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!user.isDeleting">Delete</span>
+                <a routerLink="edit/{{student.studentid}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+                <button (click)="deleteStudent(student.studentid)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="student.isDeleting">
+                    <span *ngIf="student.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!student.isDeleting">Delete</span>
                 </button>
             </td>
         </tr>
-        <tr *ngIf="!students">
+        <tr *ngIf="!studentData">
             <td colspan="4" class="text-center">
                 <span class="spinner-border spinner-border-lg align-center"></span>
             </td>

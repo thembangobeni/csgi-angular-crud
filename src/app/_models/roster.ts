@@ -1,4 +1,4 @@
-export class Csgi_roster {
+export interface Csgi_roster {
     rosterid:String;
     classid:String;
     periodid:String;

@@ -1,4 +1,4 @@
-export class Csgi_grade {
+export interface Csgi_grade {
     gradeid:String;
     gradecode:String;
     grade:String;

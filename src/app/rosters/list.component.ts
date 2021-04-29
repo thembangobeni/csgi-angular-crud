@@ -1,25 +1,28 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { first } from 'rxjs/operators';
+import { first, last } from 'rxjs/operators';
 
-import { AccountService } from '@app/_services';
+import { RosterService } from '@app/_services';
 
-@Component({ templateUrl: 'list.component.html' })
+@Component({ templateUrl: 'list.component.html', selector: 'app-datepipe' })
 export class ListComponent implements OnInit {
-    users = null;
+    rosterData = null;
 
-    constructor(private accountService: AccountService) {}
+    constructor(private rosterService: RosterService) {}
 
     ngOnInit() {
-        this.accountService.getAll()
-            .pipe(first())
-            .subscribe(users => this.users = users);
+            this.rosterService.getAll()
+                    .pipe(first())
+                    .subscribe(rosterData => this.rosterData = rosterData);
     }
 
-    deleteUser(id: string) {
-        const user = this.users.find(x => x.id === id);
-        user.isDeleting = true;
-        this.accountService.delete(id)
+
+    deletePeriod(id: string) {
+        //alert(this.periodData.find(x => x.id === id));
+        const roster = this.rosterData.find(x => x.rosterid === id);
+        roster.isDeleting = true;
+     //   alert(period.isDeleting);
+        this.rosterService.delete(id)
             .pipe(first())
-            .subscribe(() => this.users = this.users.filter(x => x.id !== id));
+            .subscribe(() => this.rosterData = this.rosterData.filter(x => x.rosterid !== id));
     }
 }

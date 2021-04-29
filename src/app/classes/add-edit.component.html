@@ -1,40 +1,58 @@
-﻿<h1 *ngIf="isAddMode">Add User</h1>
-<h1 *ngIf="!isAddMode">Edit User</h1>
+﻿<h1 *ngIf="isAddMode">Add Class</h1>
+<h1 *ngIf="!isAddMode">Edit Class</h1>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form-row">
+        <div class="form-group col" style="display:none">
+            <label for="classid">classid#</label>
+            <input type="hidden" formControlName="classid" class="form-control" [ngClass]="" />
+            <!--<div *ngIf="submitted && f.classid.errors" class="invalid-feedback">
+                <div *ngIf="f.classid.errors.required">Class Id# is required</div>
+                classid:['', ''],
+            classname:['', classValidators],
+            class_desc:['', ''],
+            userid:['', ''],
+            gradeid:['', ''],
+            roomid:['', ''],
+            created_by:['', ''],
+            updated_by:['', '']
+            </div> -->
+        </div>
         <div class="form-group col">
-            <label for="firstName">First Name</label>
-            <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
-            <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-                <div *ngIf="f.firstName.errors.required">First Name is required</div>
+            <label for="userid">Teacher</label>
+            <input type="text" formControlName="userid" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.userid.errors }" />
+            <div *ngIf="submitted && f.userid.errors" class="invalid-feedback">
+                <div *ngIf="f.userid.errors.required">Class Name is required</div>
             </div>
         </div>
         <div class="form-group col">
-            <label for="lastName">Last Name</label>
-            <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
-            <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-                <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+            <label for="class_desc">Description</label>
+            <input type="text" formControlName="class_desc" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.class_desc.errors }" />
+            <div *ngIf="submitted && f.class_desc.errors" class="invalid-feedback">
+                <div *ngIf="f.class_desc.errors.required">Description is required</div>
             </div>
-        </div>
+        </div>        
     </div>
-    <div class="form-row">
+    <div class="form-row"> 
         <div class="form-group col">
-            <label for="username">Username</label>
-            <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                <div *ngIf="f.username.errors.required">Username is required</div>
+            <label for="gradeid">Grade#</label>
+            <input type="text" formControlName="gradeid" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.gradeid.errors }" />
+            <div *ngIf="submitted && f.gradeid.errors" class="invalid-feedback">
+                <div *ngIf="f.gradeid.errors.required">Grade is required</div>
             </div>
         </div>
         <div class="form-group col">
-            <label for="password">
-                Password
-                <em *ngIf="!isAddMode">(Leave blank to keep the same password)</em>
-            </label>
-            <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                <div *ngIf="f.password.errors.required">Password is required</div>
-                <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+            <label for="roomid">Room#</label>
+            <input type="text" formControlName="roomid" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.roomid.errors }" />
+            <div *ngIf="submitted && f.roomid.errors" class="invalid-feedback">
+                <div *ngIf="f.roomid.errors.required">Room is required</div>
             </div>
+        </div>        
+
+    </div>
+    <div class="form-row"> 
+        <div class="form-group col">
+            <input type="hidden" formControlName="created_by" class="form-control" [ngClass]="">
+            <input type="hidden" formControlName="updated_by" class="form-control" [ngClass]="">
         </div>
     </div>
     <div class="form-group">
@@ -42,6 +60,6 @@
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
             Save
         </button>
-        <a routerLink="/users" class="btn btn-link">Cancel</a>
+        <a routerLink="/classes" class="btn btn-link">Cancel</a>
     </div>
 </form>

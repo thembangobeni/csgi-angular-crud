@@ -2,14 +2,12 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-
-//import { AccountService, StudentService, AlertService } from '@app/_services';
 import { StudentService, AlertService } from '@app/_services';
 
 @Component({ templateUrl: 'add-edit.component.html' })
 export class AddEditComponent implements OnInit {
     form: FormGroup;
-    id: string;
+    studentid: string;
     isAddMode: boolean;
     loading = false;
     submitted = false;
@@ -18,36 +16,35 @@ export class AddEditComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-      //  private accountService: AccountService,
         private studentService: StudentService,
         private alertService: AlertService
     ) {}
 
     ngOnInit() {
-        this.id = this.route.snapshot.params['id'];
-        this.isAddMode = !this.id;
+        this.studentid = this.route.snapshot.params['id'];
+        //this.isAddMode = !this.studentid;
+        this.isAddMode = !this.studentid;
+
+        alert(!this.studentid);
         
         // password not required in edit mode
-       // const passwordValidators = [Validators.minLength(6)];
-      //  if (this.isAddMode) {
-      //      passwordValidators.push(Validators.required);
-      //  }
+        const genderValidators = [Validators.minLength(1)];
+        if (this.isAddMode) {
+            genderValidators.push(Validators.required);
+        }
 
         this.form = this.formBuilder.group({
             studentid:['', ''],
             student_name:['', Validators.required],
             last_name:['', Validators.required],
             date_of_birth:['', Validators.required],
-            gender:['', ''],
+            gender:['', genderValidators],
             created_by:['', ''],
-            updated_by:['', ''],
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
-            username: ['', Validators.required] 
+            updated_by:['', '']
         });
 
         if (!this.isAddMode) {
-            this.studentService.getById(this.id)
+            this.studentService.getById(this.studentid)
                 .pipe(first())
                 .subscribe(x => this.form.patchValue(x));
         }
@@ -91,7 +88,7 @@ export class AddEditComponent implements OnInit {
     }
 
     private updateStudent() {
-        this.studentService.update(this.id, this.form.value)
+        this.studentService.update(this.studentid, this.form.value)
             .pipe(first())
             .subscribe({
                 next: () => {

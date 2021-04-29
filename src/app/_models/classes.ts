@@ -1,4 +1,4 @@
-export class Csgi_class {
+export interface Csgi_class {
     classid:String;
     classname:String;
     class_desc:String;

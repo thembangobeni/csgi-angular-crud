@@ -1,25 +1,47 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { first } from 'rxjs/operators';
+import { first, last } from 'rxjs/operators';
 
+import { User } from '@app/_models';
 import { AccountService } from '@app/_services';
 
-@Component({ templateUrl: 'list.component.html' })
-export class ListComponent implements OnInit {
-    users = null;
+import { detailreport_vService } from '@app/_services';
 
-    constructor(private accountService: AccountService) {}
+@Component({ templateUrl: 'list.component.html', selector: 'app-datepipe' })
+export class ListComponent implements OnInit {
+    reportData = null;
+    user: User;
+
+    constructor(private reportService: detailreport_vService,private accountService: AccountService) {
+      this.user = this.accountService.userValue;
+    }
+
+
+    //.getById(this.periodid)
 
     ngOnInit() {
-        this.accountService.getAll()
-            .pipe(first())
-            .subscribe(users => this.users = users);
+      //alert(this.localS);
+    // this.user = localStorage.getItem('user');
+      
+    this.user = JSON.parse(localStorage.getItem('user'));
+      alert(this.user.email);
+
+     /* this.reportService.getAll()
+      .pipe(first())
+      .subscribe(reportData => this.reportData = reportData);*/
+      
+    this.reportService.getAllDetailReport(this.user.email)
+                    .pipe(first())
+                    .subscribe(reportData => this.reportData = reportData);
     }
 
-    deleteUser(id: string) {
-        const user = this.users.find(x => x.id === id);
-        user.isDeleting = true;
-        this.accountService.delete(id)
+
+   /* deletePeriod(id: string) {
+        //alert(this.periodData.find(x => x.id === id));
+        const report = this.reportData.find(x => x.reportid === id);
+        report.isDeleting = true;
+     //   alert(period.isDeleting);
+        this.reportService.delete(id)
             .pipe(first())
-            .subscribe(() => this.users = this.users.filter(x => x.id !== id));
-    }
+            .subscribe(() => this.reportData = this.reportData.filter(x => x.reportid !== id));
+    }*/
 }

@@ -1,25 +1,28 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { first } from 'rxjs/operators';
+import { first, last } from 'rxjs/operators';
 
-import { AccountService } from '@app/_services';
+import { ClassService } from '@app/_services';
 
-@Component({ templateUrl: 'list.component.html' })
+@Component({ templateUrl: 'list.component.html', selector: 'app-datepipe' })
 export class ListComponent implements OnInit {
-    users = null;
+     classesData = null;
 
-    constructor(private accountService: AccountService) {}
+    constructor(private classesService: ClassService) {}
 
     ngOnInit() {
-        this.accountService.getAll()
-            .pipe(first())
-            .subscribe(users => this.users = users);
+            this.classesService.getAll()
+                    .pipe(first())
+                    .subscribe(classesData => this.classesData = classesData);
     }
 
-    deleteUser(id: string) {
-        const user = this.users.find(x => x.id === id);
-        user.isDeleting = true;
-        this.accountService.delete(id)
+
+    deleteClass(id: string) {
+        //alert(this.gradesData.find(x => x.id === id));
+        const classes = this.classesData.find(x => x.classid === id);
+        classes.isDeleting = true;
+        alert(classes.isDeleting);
+        this.classesService.delete(id)
             .pipe(first())
-            .subscribe(() => this.users = this.users.filter(x => x.id !== id));
+            .subscribe(() => this.classesData = this.classesData.filter(x => x.classid !== id));
     }
 }

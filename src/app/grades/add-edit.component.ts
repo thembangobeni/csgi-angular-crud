@@ -2,13 +2,12 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-
-import { AccountService, AlertService } from '@app/_services';
+import { GradeService, AlertService } from '@app/_services';
 
 @Component({ templateUrl: 'add-edit.component.html' })
 export class AddEditComponent implements OnInit {
     form: FormGroup;
-    id: string;
+    gradeid: string;
     isAddMode: boolean;
     loading = false;
     submitted = false;
@@ -17,29 +16,33 @@ export class AddEditComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private accountService: AccountService,
+        private gradesService: GradeService,
         private alertService: AlertService
     ) {}
 
     ngOnInit() {
-        this.id = this.route.snapshot.params['id'];
-        this.isAddMode = !this.id;
+        this.gradeid = this.route.snapshot.params['id'];
+        //this.isAddMode = !this.studentid;
+        this.isAddMode = !this.gradeid;
+
+        //alert(!this.gradeid);
         
         // password not required in edit mode
-        const passwordValidators = [Validators.minLength(6)];
+        const gradeValidators = [Validators.minLength(2)];
         if (this.isAddMode) {
-            passwordValidators.push(Validators.required);
+            gradeValidators.push(Validators.required);
         }
 
         this.form = this.formBuilder.group({
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
-            username: ['', Validators.required],
-            password: ['', passwordValidators]
+            gradeid:['', ''],
+            gradecode:['', gradeValidators],
+            grade:['', Validators.required],
+            created_by:['', ''],
+            updated_by:['', '']
         });
 
         if (!this.isAddMode) {
-            this.accountService.getById(this.id)
+            this.gradesService.getById(this.gradeid)
                 .pipe(first())
                 .subscribe(x => this.form.patchValue(x));
         }
@@ -61,18 +64,18 @@ export class AddEditComponent implements OnInit {
 
         this.loading = true;
         if (this.isAddMode) {
-            this.createUser();
+            this.createGrade();
         } else {
-            this.updateUser();
+            this.updateGrade();
         }
     }
 
-    private createUser() {
-        this.accountService.register(this.form.value)
+    private createGrade() {
+        this.gradesService.register(this.form.value)
             .pipe(first())
             .subscribe({
                 next: () => {
-                    this.alertService.success('User added successfully', { keepAfterRouteChange: true });
+                    this.alertService.success('Grade added successfully', { keepAfterRouteChange: true });
                     this.router.navigate(['../'], { relativeTo: this.route });
                 },
                 error: error => {
@@ -82,11 +85,12 @@ export class AddEditComponent implements OnInit {
             });
     }
 
-    private updateUser() {
-        this.accountService.update(this.id, this.form.value)
+    private updateGrade() {
+        this.gradesService.update(this.gradeid, this.form.value)
             .pipe(first())
             .subscribe({
                 next: () => {
+                    alert(this.gradeid);
                     this.alertService.success('Update successful', { keepAfterRouteChange: true });
                     this.router.navigate(['../../'], { relativeTo: this.route });
                 },

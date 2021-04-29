@@ -1,28 +1,33 @@
-﻿<h1>Users</h1>
-<a routerLink="add" class="btn btn-sm btn-success mb-2">Add User</a>
+﻿<h1>Grades</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Add Grade</a>
 <table class="table table-striped">
     <thead>
         <tr>
-            <th style="width: 30%">First Name</th>
-            <th style="width: 30%">Last Name</th>
-            <th style="width: 30%">Username</th>
+            <th style="width: 10%">Grade#</th>
+            <th style="width: 20%">Grade Code</th>
+            <th style="width: 20%">Grade Name</th>
+            <th style="width: 10%">CreatedBy</th>
+            <th style="width: 10%">UpdateBy</th> 
             <th style="width: 10%"></th>
         </tr>
     </thead>
-    <tbody>
-        <tr *ngFor="let user of users">
-            <td>{{user.firstName}}</td>
-            <td>{{user.lastName}}</td>
-            <td>{{user.username}}</td>
+    <tbody> 
+        <tr *ngFor="let grades of gradesData">
+            <td>{{grades.gradeid}}</td>
+            <td>{{grades.gradecode}}</td>
+            <td>{{grades.grade}}</td>
+            <td>{{grades.created_by}}</td>
+            <td>{{grades.updated_by}}</td>
+      
             <td style="white-space: nowrap">
-                <a routerLink="edit/{{user.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
-                <button (click)="deleteUser(user.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="user.isDeleting">
-                    <span *ngIf="user.isDeleting" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!user.isDeleting">Delete</span>
+                <a routerLink="edit/{{grades.gradeid}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+                <button (click)="deleteGrade(grades.gradeid)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="grades.isDeleting">
+                    <span *ngIf="grades.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!grades.isDeleting">Delete</span>
                 </button>
             </td>
         </tr>
-        <tr *ngIf="!users">
+        <tr *ngIf="!gradesData">
             <td colspan="4" class="text-center">
                 <span class="spinner-border spinner-border-lg align-center"></span>
             </td>

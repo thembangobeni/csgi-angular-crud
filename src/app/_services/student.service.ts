@@ -1,19 +1,19 @@
 import { ErrorHandler, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, of, pipe } from 'rxjs';
+import { HttpClient,HttpResponse } from '@angular/common/http';
+import { BehaviorSubject, config, Observable, of, pipe, throwError } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
-import { map, catchError, first } from 'rxjs/operators';
+import { map, catchError, first, tap } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
-import { Csgi_student, User } from '@app/_models';
+import { Csgi_student } from '@app/_models';
+import { AjaxResponse } from '@app/_helpers';
 
 @Injectable({ providedIn: 'root' })
 export class StudentService {
+    [x: string]: any;
     private studentSubject: BehaviorSubject<Csgi_student>;
-    private userSubject: BehaviorSubject<User>;
     public student: Observable<Csgi_student>;
-    public user: Observable<User>;
 
     stringifiedData: any;  
     parsedJson: any; 
@@ -23,39 +23,58 @@ export class StudentService {
         private router: Router,
         private http: HttpClient
     ) {
-        this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
-        this.user = this.userSubject.asObservable();
+       // this.studentSubject = new BehaviorSubject<Csgi_student>(JSON.parse(localStorage.getItem('student')));
         this.studentSubject = new BehaviorSubject<Csgi_student>(JSON.parse(localStorage.getItem('student')));
         this.student = this.studentSubject.asObservable();
 
     }
 
-    public get userValue(): User {
-        return this.userSubject.value;
-    }
-
+ 
     public get studentValue(): Csgi_student {
         return this.studentSubject.value;
     }
 
 
-    logout() {
-        // remove user from local storage and set current user to null
-        localStorage.removeItem('user');
-        this.userSubject.next(null);
-        this.router.navigate(['/account/login']);
-    }
 
     register(student: Csgi_student) {
         return this.http.post(`${environment.apiUrl}/api/student`, student);
     }
 
     getAll() {
-        return this.http.get<Csgi_student[]>(`${environment.apiUrl}/api/student`);
+  //       alert('on getAll service')
+       // alert(JSON.stringify(this.http.get<Csgi_student[]>(`${environment.apiUrl}/api/student`)));
+       // return this.http.get<Csgi_student[]>(`${environment.apiUrl}/api/student`);
+       return this.http.get<Csgi_student[]>(`${environment.apiUrl}/api/student`)
+       /*.pipe(
+        map((data: any) => {
+           // alert('on Get Students'+JSON.stringify(data));
+          return data;
+        }), catchError( error => {
+          return throwError( 'Something went wrong!' );
+        })
+     )*/
+       
+
+       // return response;
     }
 
+    getStudents() {
+        return this.http.get(`${environment.apiUrl}/api/student`).
+            pipe(
+               map((student: Csgi_student[]) => {
+                 //  alert('on Get Students'+JSON.stringify(data));
+                 return JSON.stringify(student);
+               }), catchError( error => {
+                 return throwError( 'Something went wrong!' );
+               })
+            )
+        }
+    
+
     getById(id: string) {
+        alert('update for ID: '+id)
         return this.http.get<Csgi_student>(`${environment.apiUrl}/api/student/${id}`);
+
     }
 
     update(id, params) {
@@ -80,9 +99,9 @@ export class StudentService {
         return this.http.delete(`${environment.apiUrl}/api/student/${id}`)
             .pipe(map(x => {
                 // auto logout if the logged in user deleted their own record
-                if (id == this.studentValue.studentid) {
+             /*   if (id == this.studentValue.studentid) {
                     this.logout();
-                }
+                }*/
                 return x;
             }));
       

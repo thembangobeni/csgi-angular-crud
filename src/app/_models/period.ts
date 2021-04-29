@@ -1,4 +1,4 @@
-export class Csgi_period {
+export interface Csgi_period {
     periodid:String;
     periodname:String;
     period_desc:String;

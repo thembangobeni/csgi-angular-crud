@@ -1,28 +1,37 @@
-﻿<h1>Users</h1>
-<a routerLink="add" class="btn btn-sm btn-success mb-2">Add User</a>
+﻿<h1>Register</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Add Register</a>
 <table class="table table-striped">
     <thead>
         <tr>
-            <th style="width: 30%">First Name</th>
-            <th style="width: 30%">Last Name</th>
-            <th style="width: 30%">Username</th>
+            <th style="width: 10%">roster#</th>
+            <th style="width: 20%">Class Name</th>
+            <th style="width: 20%">Period</th>
+            <th style="width: 20%">Student</th>
+            <th style="width: 20%">Attended?</th>
+           <!-- <th style="width: 10%">CreatedBy</th>
+            <th style="width: 10%">UpdateBy</th> -->
             <th style="width: 10%"></th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let user of users">
-            <td>{{user.firstName}}</td>
-            <td>{{user.lastName}}</td>
-            <td>{{user.username}}</td>
+        <tr *ngFor="let roster of rosterData">
+            <td>{{roster.rosterid}}</td>
+            <td>{{roster.classid}}</td>
+            <td>{{roster.periodid}}</td>
+            <td>{{roster.studentid}}</td>
+            <td>{{roster.attended_yn}}</td>
+          <!--  <td>{{roster.created_by}}</td>
+            <td>{{roster.updated_by}}</td> -->
+      
             <td style="white-space: nowrap">
-                <a routerLink="edit/{{user.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
-                <button (click)="deleteUser(user.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="user.isDeleting">
-                    <span *ngIf="user.isDeleting" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!user.isDeleting">Delete</span>
+                <a routerLink="edit/{{roster.rosterid}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+                <button (click)="deleteRoster(roster.rosterid)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="roster.isDeleting">
+                    <span *ngIf="roster.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!roster.isDeleting">Delete</span>
                 </button>
             </td>
         </tr>
-        <tr *ngIf="!users">
+        <tr *ngIf="!rosterData">
             <td colspan="4" class="text-center">
                 <span class="spinner-border spinner-border-lg align-center"></span>
             </td>

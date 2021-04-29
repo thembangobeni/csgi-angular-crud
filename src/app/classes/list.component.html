@@ -1,28 +1,39 @@
-﻿<h1>Users</h1>
-<a routerLink="add" class="btn btn-sm btn-success mb-2">Add User</a>
+﻿<h1>Classes</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Add Class</a>
 <table class="table table-striped">
     <thead>
         <tr>
-            <th style="width: 30%">First Name</th>
-            <th style="width: 30%">Last Name</th>
-            <th style="width: 30%">Username</th>
+            <th style="width: 10%">Class#</th>
+            <th style="width: 20%">Class Name</th>
+            <th style="width: 20%">Class Desc</th>
+            <th style="width: 20%">Teacher#</th>
+            <th style="width: 20%">Grade#</th>
+            <th style="width: 20%">Room#</th>
+            <th style="width: 10%">CreatedBy</th>
+            <th style="width: 10%">UpdateBy</th> 
             <th style="width: 10%"></th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let user of users">
-            <td>{{user.firstName}}</td>
-            <td>{{user.lastName}}</td>
-            <td>{{user.username}}</td>
+        <tr *ngFor="let classes of classesData">
+            <td>{{classes.classid}}</td>
+            <td>{{classes.classname}}</td>
+            <td>{{classes.class_desc}}</td>
+            <td>{{classes.userid}}</td>
+            <td>{{classes.gradeid}}</td>
+            <td>{{classes.roomid}}</td>
+            <td>{{classes.created_by}}</td>
+            <td>{{classes.updated_by}}</td>
+      
             <td style="white-space: nowrap">
-                <a routerLink="edit/{{user.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
-                <button (click)="deleteUser(user.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="user.isDeleting">
-                    <span *ngIf="user.isDeleting" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!user.isDeleting">Delete</span>
+                <a routerLink="edit/{{classes.classid}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+                <button (click)="deleteClass(classes.classid)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="classes.isDeleting">
+                    <span *ngIf="classes.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!classes.isDeleting">Delete</span>
                 </button>
             </td>
         </tr>
-        <tr *ngIf="!users">
+        <tr *ngIf="!classesData">
             <td colspan="4" class="text-center">
                 <span class="spinner-border spinner-border-lg align-center"></span>
             </td>

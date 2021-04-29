@@ -1,0 +1,42 @@
+﻿<h1>Period</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Add Period</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 10%">Period#</th>
+            <th style="width: 20%">Period Name</th>
+            <th style="width: 20%">Description</th>
+            <th style="width: 20%">Period Date</th>
+            <th style="width: 20%">PeriodStart</th>
+            <th style="width: 20%">PeriodEnd#</th>
+            <th style="width: 10%">CreatedBy</th>
+            <th style="width: 10%">UpdateBy</th> 
+            <th style="width: 10%"></th>
+        </tr>
+    </thead>
+    <tbody> 
+        <tr *ngFor="let period of periodData">
+            <td>{{period.periodid}}</td>
+            <td>{{period.periodname}}</td>
+            <td>{{period.period_desc}}</td>
+            <td>{{period.period_date | date :'yyyy-MM-dd'}}</td>
+            <td>{{period.period_start | date :'hh:mm'}}</td>
+            <td>{{period.period_end | date :'hh:mm'}}</td>
+            <td>{{period.created_by}}</td>
+            <td>{{period.updated_by}}</td>
+      
+            <td style="white-space: nowrap">
+                <a routerLink="edit/{{period.periodid}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+                <button (click)="deletePeriod(period.periodid)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="period.isDeleting">
+                    <span *ngIf="period.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!period.isDeleting">Delete</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!periodData">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>

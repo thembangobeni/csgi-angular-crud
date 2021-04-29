@@ -4,6 +4,6 @@ export class Csgi_student {
     last_name:String;
     date_of_birth:String;
     gender:String;
-    created_by:String;
-    updated_by:String;
+    created_by? :String;
+    updated_by? :String;
   }

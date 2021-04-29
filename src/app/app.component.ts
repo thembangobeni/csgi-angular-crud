@@ -16,18 +16,19 @@ export class AppComponent {
     summaryreport:Csgi_summaryreport_v;
     teacher:Csgi_teacher_v;
 
-    constructor(private accountService: AccountService) {
+    constructor(private accountService: AccountService, private studentService: StudentService, 
+                private gradeService: GradeService, private classService: ClassService,
+                private rosterService: RosterService, private periodService: PeriodService,
+                private detailreportService: detailreport_vService
+                ) {
         this.accountService.user.subscribe(x => this.user = x);
-    }
-/*
-    constructor(private studentService: StudentService) {
         this.studentService.student.subscribe(x => this.student = x);
-    }
-
-    constructor(private classService: ClassService) {
+        this.gradeService.grade.subscribe(x => this.grade = x);
         this.classService.classes.subscribe(x => this.classes = x);
+        this.rosterService.roster.subscribe(x => this.roster = x);
+        this.detailreportService.detailreport_v.subscribe(x => this.detailreport = x);
+        this.periodService.period.subscribe(x => this.period = x);
     }
-*/
 
     logout() {
         this.accountService.logout();

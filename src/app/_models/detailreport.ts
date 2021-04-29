@@ -1,4 +1,4 @@
-export class Csgi_detailreport_v {
+export interface Csgi_detailreport_v {
     classid:String;
     classname:String;
     gradeid:String;
