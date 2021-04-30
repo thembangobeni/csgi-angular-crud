@@ -48,11 +48,12 @@ export class summaryreport_vService {
 
 
     getAll() {
-        return this.http.get<Csgi_summaryreport_v[]>(`${environment.apiUrl}/api/dbviews`);
+        alert('on Summary getall');
+        return this.http.get(`${environment.apiUrl}/api/summaryreport`);
     }
 
-    getById(id: string, classid: string) {
+   /* getById(id: string, classid: string) {
         return this.http.get<Csgi_summaryreport_v>(`${environment.apiUrl}/api/dbviews/${id}/${classid}`);
-    }
+    }*/
 
 }

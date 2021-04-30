@@ -4,6 +4,7 @@ export * from './classes';
 export * from './grade';
 export * from './period';
 export * from './roster';
+export * from './room';
 export * from './teacher';
 export * from './summaryreport';
 export * from './student';

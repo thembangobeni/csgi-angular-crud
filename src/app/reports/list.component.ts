@@ -2,16 +2,14 @@
 import { first, last } from 'rxjs/operators';
 
 import { User } from '@app/_models';
-import { AccountService } from '@app/_services';
-
-import { detailreport_vService } from '@app/_services';
+import { AccountService, detailreport_vService } from '@app/_services';
 
 @Component({ templateUrl: 'list.component.html', selector: 'app-datepipe' })
 export class ListComponent implements OnInit {
     reportData = null;
     user: User;
 
-    constructor(private reportService: detailreport_vService,private accountService: AccountService) {
+    constructor(private reportService: detailreport_vService, private accountService: AccountService) {
       this.user = this.accountService.userValue;
     }
 
@@ -25,13 +23,13 @@ export class ListComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user'));
       alert(this.user.email);
 
-     /* this.reportService.getAll()
+     this.reportService.getAllDetailReport(this.user.email)
       .pipe(first())
-      .subscribe(reportData => this.reportData = reportData);*/
+      .subscribe(reportData => this.reportData = reportData);
       
-    this.reportService.getAllDetailReport(this.user.email)
+  /* this.reportService.getAll()
                     .pipe(first())
-                    .subscribe(reportData => this.reportData = reportData);
+                    .subscribe(reportData => this.reportData = reportData);*/
     }
 
 

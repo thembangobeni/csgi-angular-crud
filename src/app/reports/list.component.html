@@ -1,8 +1,10 @@
 ﻿<h1>Daily Report</h1>
 <table class="table table-striped">
     <tr>
-        <td align='left'><a routerLink="add" class="btn btn-sm btn-success mb-2">Summary Report</a></td>
-        <td align='left'><a routerLink="add" class="btn btn-sm btn-success mb-2">Term Report</a></td>
+        <td  style="width: 20px">
+            <a routerLink="../../" class="btn btn-sm btn-success mb-2">Summary Report</a>
+            <a routerLink="../../" class="btn btn-sm btn-success mb-2">Term Report</a>
+        </td>
     </tr>
 </table>
  
@@ -12,21 +14,29 @@
          <tr>
             <th style="width: 10%">classname#</th>
             <th style="width: 10%">Grade</th>
-            <th style="width: 20%">teachername</th>
-            <th style="width: 20%">period</th>
-            <th style="width: 20%">student_name</th>
-            <th style="width: 10%">attended?</th>
+            <th style="width: 20%">Teacher</th>
+            <th style="width: 10%">Period</th>
+            <th style="width: 10%">Term</th>
+            <th style="width: 20%">Date</th>
+            <th style="width: 10%">Student#</th>
+            <th style="width: 20%">Student</th>
+            <th style="width: 10%">present?</th>
+            <th style="width: 10%">absent?</th>
             <th style="width: 10%"></th>
         </tr>
     </thead>
-    <tbody> 
+    <tbody>   
         <tr *ngFor="let report of reportData">
             <td>{{report.classname}}</td>
             <td>{{report.gradecode}}</td>
             <td>{{report.teachername}}</td>
-            <td>{{report.period_date}}</td>
+            <td>{{report.periodname}}</td>
+            <td>{{report.quarter}}</td>
+            <td>{{report.period_date | date: 'YYYY-MM-dd'}}</td>
+            <td>{{report.studentid}}</td>
             <td>{{report.student_name}}</td>
-            <td>{{report.attended_yn}}</td>        
+            <td>{{report.attended}}</td>
+            <td>{{report.notattended}}</td>
         </tr>
         <tr *ngIf="!reportData">
             <td colspan="4" class="text-center">

@@ -10,9 +10,10 @@ import { Csgi_detailreport_v, User } from '@app/_models';
 
 @Injectable({ providedIn: 'root' })
 export class detailreport_vService {
-    private detailreport_vSubject: BehaviorSubject<Csgi_detailreport_v>;
+    private detailSubject: BehaviorSubject<Csgi_detailreport_v>;
+    public detail: Observable<Csgi_detailreport_v>;
+
     private userSubject: BehaviorSubject<User>;
-    public detailreport_v: Observable<Csgi_detailreport_v>;
     public user: Observable<User>;
 
     stringifiedData: any;  
@@ -25,8 +26,9 @@ export class detailreport_vService {
     ) {
         this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
         this.user = this.userSubject.asObservable();
-        this.detailreport_vSubject = new BehaviorSubject<Csgi_detailreport_v>(JSON.parse(localStorage.getItem('detailreport_v')));
-        this.detailreport_v = this.detailreport_vSubject.asObservable();
+
+        this.detailSubject = new BehaviorSubject<Csgi_detailreport_v>(JSON.parse(localStorage.getItem('detailreport_v')));
+        this.detail = this.detailSubject.asObservable();
 
     }
 
@@ -35,7 +37,7 @@ export class detailreport_vService {
     }
 
     public get detailreport_vValue(): Csgi_detailreport_v {
-        return this.detailreport_vSubject.value;
+        return this.detailSubject.value;
     }
 
 
@@ -48,18 +50,13 @@ export class detailreport_vService {
 
 
     getAll() {
-        return this.http.get<Csgi_detailreport_v[]>(`${environment.apiUrl}/api/dbviews`);
+        return this.http.get<Csgi_detailreport_v[]>(`${environment.apiUrl}/api/reportdetail`);
     }
 
     getAllDetailReport(id: String) {
-        alert('get detail service'+id)
-        return this.http.get<Csgi_detailreport_v[]>(`${environment.apiUrl}/api/dbviews/${id}`);
+        //alert('call '+id)
+        return this.http.get<Csgi_detailreport_v[]>(`${environment.apiUrl}/api/reportdetail/${id}`);
     }
 
-    
-
-    getById(id: string, classid: string, gradeid: string) {
-        return this.http.get<Csgi_detailreport_v>(`${environment.apiUrl}/api/dbviews/${id}/${classid}/${gradeid}`);
-    }
 
 }

@@ -20,11 +20,10 @@
             <td>{{classes.classname}}</td>
             <td>{{classes.class_desc}}</td>
             <td>{{classes.userid}}</td>
-            <td>{{classes.gradeid}}</td>
+            <td>{{getParentNameById(classes.gradeid) }}</td>   
             <td>{{classes.roomid}}</td>
             <td>{{classes.created_by}}</td>
             <td>{{classes.updated_by}}</td>
-      
             <td style="white-space: nowrap">
                 <a routerLink="edit/{{classes.classid}}" class="btn btn-sm btn-primary mr-1">Edit</a>
                 <button (click)="deleteClass(classes.classid)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="classes.isDeleting">

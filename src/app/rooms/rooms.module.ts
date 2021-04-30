@@ -2,21 +2,21 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-import { ReportRoutingModule } from './reports-routing.module';
+import { RoomRoutingModule } from './rooms-routing.module';
 import { LayoutComponent } from './layout.component';
 import { ListComponent } from './list.component';
-//import { AddEditComponent } from './add-edit.component';
+import { AddEditComponent } from './add-edit.component';
 
 @NgModule({
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        ReportRoutingModule
+        RoomRoutingModule
     ],
     declarations: [
         LayoutComponent,
-        ListComponent
-       //, AddEditComponent
+        ListComponent,
+        AddEditComponent
     ]
 })
-export class ReportModule { }
+export class RoomModule { }

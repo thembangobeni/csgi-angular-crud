@@ -1,0 +1,38 @@
+﻿<h1>Rooms</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Add Grade</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 10%">Room#</th>
+            <th style="width: 20%">Room Code</th>
+            <th style="width: 20%">Room Name</th>
+            <th style="width: 20%">Location</th>
+            <th style="width: 10%">CreatedBy</th>
+            <th style="width: 10%">UpdateBy</th> 
+            <th style="width: 10%"></th>
+        </tr>
+    </thead>
+    <tbody> 
+        <tr *ngFor="let rooms of roomsData">
+            <td>{{rooms.roomid}}</td>
+            <td>{{rooms.roomcode}}</td>
+            <td>{{rooms.room_desc}}</td>
+            <td>{{rooms.location}}</td>
+            <td>{{rooms.created_by}}</td>
+            <td>{{rooms.updated_by}}</td>
+      
+            <td style="white-space: nowrap">
+                <a routerLink="edit/{{rooms.roomid}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+                <button (click)="deleteRoom(rooms.roomid)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="rooms.isDeleting">
+                    <span *ngIf="rooms.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!rooms.isDeleting">Delete</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!roomsData">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
